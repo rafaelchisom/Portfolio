@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Raphael Ariguzor — Software Developer &amp; IT Lead</title>
+  <meta name="description" content="Raphael Ariguzor builds web platforms, mobile apps and machine-learning models, and leads technology at the Digital Healthcare Access Foundation.">
+  <meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#14161a" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Raphael Ariguzor — Software Developer &amp; IT Lead">
+  <meta property="og:description" content="Web platforms, mobile apps and machine-learning models — and the technology behind a health non-profit.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#work">Skip to projects</a>
+
+  <header class="top">
+    <a class="mark" href="#" aria-label="Raphael Ariguzor, back to top">RA</a>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span>IT Lead at the Digital Healthcare Access Foundation</p>
+      <h1>Raphael Ariguzor</h1>
+      <p class="lede">I build practical software — <em>web platforms</em>, <em>mobile apps</em> and <em>machine-learning models</em> — and run the technology behind a health non-profit.</p>
+      <div class="hero-actions">
+        <a class="btn btn-solid" href="#work">See my work</a>
+        <a class="btn btn-line" href="mailto:rafaelchisom@gmail.com">Email me</a>
+      </div>
+      <dl class="facts">
+        <div><dt>Focus</dt><dd>Web, mobile &amp; data</dd></div>
+        <div><dt>Stack</dt><dd>C#/.NET · PHP · JavaScript · Python</dd></div>
+        <div><dt>Now</dt><dd>DHAF — dhafinitiatives.org</dd></div>
+      </dl>
+    </section>
+
+    <section id="work" class="wrap section" aria-labelledby="work-title">
+      <div class="section-head">
+        <p class="kicker">01 — Selected work</p>
+        <h2 id="work-title">Things I've built</h2>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button type="button" class="chip is-on" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="chip" data-filter="web" aria-pressed="false">Web</button>
+        <button type="button" class="chip" data-filter="mobile" aria-pressed="false">Mobile</button>
+        <button type="button" class="chip" data-filter="data" aria-pressed="false">Data &amp; ML</button>
+      </div>
+
+      <ol class="projects">
+        <li class="project" data-tags="web">
+          <div class="p-num" aria-hidden="true">01</div>
+          <div class="p-body">
+            <h3>DHAF website</h3>
+            <p>The public website and content-management system for the Digital Healthcare Access Foundation. I moved it from a cPanel/MySQL package to PostgreSQL on Supabase, containerised it with Docker on Render, put uploads on Supabase Storage, and made the public site work properly on phones.</p>
+            <ul class="tags"><li>PHP</li><li>PostgreSQL</li><li>Supabase</li><li>Docker</li><li>Render</li></ul>
+          </div>
+          <div class="p-links">
+            <a href="https://dhafinitiatives.org" rel="noopener">Live site <span aria-hidden="true">↗</span></a>
+            <a href="https://github.com/rafaelchisom/hsi-website" rel="noopener">Code <span aria-hidden="true">↗</span></a>
+          </div>
+        </li>
+
+        <li class="project" data-tags="web">
+          <div class="p-num" aria-hidden="true">02</div>
+          <div class="p-body">
+            <h3>Oya Quiz</h3>
+            <p>A live multiplayer quiz game. The host runs it on a big screen while players join from their phones, with real-time updates. Players can type any topic to get a fresh AI-generated round, and a stats dashboard tracks games, players and the hardest questions.</p>
+            <ul class="tags"><li>JavaScript</li><li>Supabase Realtime</li><li>AI generation</li></ul>
+          </div>
+          <div class="p-links">
+            <a href="https://oyaquiz.com" rel="noopener">Live site <span aria-hidden="true">↗</span></a>
+            <a href="https://github.com/rafaelchisom/Oya-Quiz" rel="noopener">Code <span aria-hidden="true">↗</span></a>
+          </div>
+        </li>
+
+        <li class="project" data-tags="web">
+          <div class="p-num" aria-hidden="true">03</div>
+          <div class="p-body">
+            <h3>Slide Roulette &amp; Trib3 Slide Night</h3>
+            <p>An app for presentation nights. Guests claim topics, hit "Surprise me", swap and suggest topics; on the night, Showtime mode spins for the next presenter and runs a 10-minute timer with a chime and confetti. Trib3 Slide Night is a re-themed edition sharing the same backend.</p>
+            <ul class="tags"><li>JavaScript</li><li>Supabase</li><li>SQL</li></ul>
+          </div>
+          <div class="p-links">
+            <a href="https://github.com/rafaelchisom/slide-roulette" rel="noopener">Code <span aria-hidden="true">↗</span></a>
+            <a href="https://github.com/rafaelchisom/Tribesocial" rel="noopener">Trib3 edition <span aria-hidden="true">↗</span></a>
+          </div>
+        </li>
+
+        <li class="project" data-tags="web">
+          <div class="p-num" aria-hidden="true">04</div>
+          <div class="p-body">
+            <h3>Bible Verse Finder</h3>
+            <p>A clean, responsive web app: enter a topic like anxiety, hope or grief and get relevant Bible verses back, using the OpenAI API behind an ASP.NET Core Razor Pages front end.</p>
+            <ul class="tags"><li>C#</li><li>ASP.NET Core</li><li>OpenAI API</li><li>Docker</li></ul>
+          </div>
+          <div class="p-links">
+            <a href="https://github.com/rafaelchisom/BibleVerseFinderApp" rel="noopener">Code <span aria-hidden="true">↗</span></a>
+          </div>
+        </li>
+
+        <li class="project" data-tags="data">
+          <div class="p-num" aria-hidden="true">05</div>
+          <div class="p-body">
+            <h3>Leather defect detection</h3>
+            <p>A U-Net convolutional neural network that finds defects across six classes in images of leather. Images are pre-processed with OpenCV, split 80/20 for training and testing, and segmented with a Keras model.</p>
+            <ul class="tags"><li>Python</li><li>TensorFlow / Keras</li><li>OpenCV</li><li>scikit-learn</li></ul>
+          </div>
+          <div class="p-links">
+            <a href="https://github.com/rafaelchisom/ML-projects" rel="noopener">Notebook <span aria-hidden="true">↗</span></a>
+          </div>
+        </li>
+
+        <li class="project" data-tags="data">
+          <div class="p-num" aria-hidden="true">06</div>
+          <div class="p-body">
+            <h3>Maternal health data mining</h3>
+            <p>Analysis of patients' health-screening records: data cleaning, clustering, principal component analysis, association-rule mining and statistical modelling to surface patterns in maternal health.</p>
+            <ul class="tags"><li>Python</li><li>pandas</li><li>scikit-learn</li><li>statsmodels</li></ul>
+          </div>
+          <div class="p-links">
+            <a href="https://github.com/rafaelchisom/ML-projects" rel="noopener">Notebook <span aria-hidden="true">↗</span></a>
+          </div>
+        </li>
+
+        <li class="project" data-tags="mobile">
+          <div class="p-num" aria-hidden="true">07</div>
+          <div class="p-body">
+            <h3>Erranders</h3>
+            <p>A cross-platform mobile app that connects customers with errand runners, with profiles, payment-method management and support screens.</p>
+            <ul class="tags"><li>C#</li><li>Xamarin.Forms</li><li>Android</li><li>iOS</li></ul>
+          </div>
+          <div class="p-links">
+            <a href="https://github.com/rafaelchisom/Erranders" rel="noopener">Code <span aria-hidden="true">↗</span></a>
+          </div>
+        </li>
+
+        <li class="project" data-tags="mobile">
+          <div class="p-num" aria-hidden="true">08</div>
+          <div class="p-body">
+            <h3>SOL Lite (Axasollite)</h3>
+            <p>A Xamarin insurance app for selling insurance products on the go.</p>
+            <ul class="tags"><li>C#</li><li>Xamarin</li><li>Mobile</li></ul>
+          </div>
+          <div class="p-links">
+            <a href="https://github.com/rafaelchisom/Axasollite" rel="noopener">Code <span aria-hidden="true">↗</span></a>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="skills" class="wrap section" aria-labelledby="skills-title">
+      <div class="section-head">
+        <p class="kicker">02 — Toolbox</p>
+        <h2 id="skills-title">What I work with</h2>
+      </div>
+      <div class="skills">
+        <div class="skill">
+          <h3>Languages</h3>
+          <ul><li>C#</li><li>PHP</li><li>JavaScript</li><li>Python</li><li>SQL</li><li>HTML &amp; CSS</li></ul>
+        </div>
+        <div class="skill">
+          <h3>Frameworks</h3>
+          <ul><li>ASP.NET Core</li><li>Xamarin.Forms</li><li>TensorFlow / Keras</li><li>scikit-learn</li><li>pandas</li></ul>
+        </div>
+        <div class="skill">
+          <h3>Data &amp; cloud</h3>
+          <ul><li>PostgreSQL</li><li>Supabase</li><li>MySQL</li><li>Docker</li><li>Render</li></ul>
+        </div>
+        <div class="skill">
+          <h3>IT leadership</h3>
+          <ul><li>Digital platforms &amp; infrastructure</li><li>Automation</li><li>Cybersecurity</li><li>Process improvement</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="wrap section about" aria-labelledby="about-title">
+      <div class="section-head">
+        <p class="kicker">03 — About</p>
+        <h2 id="about-title">Technology in service of a mission</h2>
+      </div>
+      <div class="about-body">
+        <p>As IT Lead at the <a href="https://dhafinitiatives.org" rel="noopener">Digital Healthcare Access Foundation</a>, I lead the planning, implementation and management of the organisation's technology. From digital platforms and infrastructure to automation, cybersecurity and process improvements, I make sure technology supports DHAF's mission and empowers the staff, volunteers and communities it serves.</p>
+        <p>Outside that role I build things: mobile apps in C# and Xamarin, web apps with .NET, PHP and JavaScript, games and event tools on Supabase, and machine-learning models in Python.</p>
+      </div>
+    </section>
+
+    <section id="contact" class="wrap section contact" aria-labelledby="contact-title">
+      <p class="kicker">04 — Contact</p>
+      <h2 id="contact-title">Let's build something.</h2>
+      <a class="big-mail" href="mailto:rafaelchisom@gmail.com">rafaelchisom@gmail.com</a>
+      <ul class="contact-links">
+        <li><a href="https://github.com/rafaelchisom" rel="noopener">GitHub — rafaelchisom <span aria-hidden="true">↗</span></a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <p>© <span id="year">2026</span> Raphael Ariguzor</p>
+    <a href="#">Back to top <span aria-hidden="true">↑</span></a>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
