@@ -163,6 +163,7 @@ h2 { font: 400 clamp(2.2rem, 6vw, 3.8rem)/1 var(--serif); letter-spacing: -.015e
 }
 .contact-links { margin-top: 28px; font: 500 .9rem/1.4 var(--mono); }
 .contact-links a { text-decoration: none; }
+.contact-links li + li { margin-top: 12px; }
 
 /* ── Footer ───────────────────────────────────────────────────────────── */
 .foot {
