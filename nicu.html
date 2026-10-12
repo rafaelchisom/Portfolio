@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NICU Network — Case study · Raphael Ariguzor</title>
+  <meta name="description" content="Designing a real-time neonatal referral and coordination platform: bed matching, a 24/7 coordination console, and an audit trail the database itself enforces.">
+  <meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111317" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="case">
+  <a class="skip" href="#decisions">Skip to the decisions</a>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-grain" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="mark" href="index.html" aria-label="Raphael Ariguzor, home">RA</a>
+    <nav aria-label="Case study">
+      <a href="#architecture">Architecture</a>
+      <a href="#decisions">Decisions</a>
+      <a href="#next">Roadmap</a>
+      <a href="index.html#work" class="nav-cta">All projects</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="wrap case-hero">
+      <p class="terminal"><span class="prompt" aria-hidden="true">&gt;</span> case-study <span class="sep" aria-hidden="true">//</span> nicu-network <span class="sep" aria-hidden="true">//</span> private repo<span class="caret" aria-hidden="true"></span></p>
+      <h1 class="case-title">Getting a sick newborn to <em>the right bed</em>, in time</h1>
+      <p class="lede">NICU Network is a digital referral and coordination platform for neonatal intensive care, built for the Digital Healthcare Access Foundation's 2026 pilot in Abuja. When a newborn needs specialist care, referring clinicians today phone hospital after hospital looking for a free cot. The platform shows live bed availability across a network, routes each referral to the hospitals that can actually take the baby, and gives a 24/7 coordination team the tools — and the audit trail — to make sure nothing falls through the cracks.</p>
+
+      <dl class="case-meta">
+        <div><dt>Role</dt><dd>Architect and lead developer — data model, API, front end, delivery</dd></div>
+        <div><dt>Stack</dt><dd>React · TypeScript · TanStack Query · FastAPI · Supabase Postgres, Auth &amp; Realtime · Render</dd></div>
+        <div><dt>Status</dt><dd>Preparing for the 2026 FCT pilot</dd></div>
+      </dl>
+
+      <dl class="stats case-stats">
+        <div class="stat"><dt>API endpoints across 10 modules</dt><dd>90+</dd></div>
+        <div class="stat"><dt>User roles with distinct permissions</dt><dd>5</dd></div>
+        <div class="stat"><dt>Lines across API, front end and SQL</dt><dd>~12k</dd></div>
+        <div class="stat"><dt>Spec-traced schema migrations</dt><dd>11</dd></div>
+      </dl>
+    </section>
+
+    <section class="wrap section" aria-labelledby="ctx-title">
+      <header class="section-head" data-reveal>
+        <p class="kicker"><span>01</span> The problem</p>
+        <h2 id="ctx-title">A coordination failure, <em>not a capacity one</em></h2>
+      </header>
+      <div class="constraints" data-reveal>
+        <div class="constraint"><h3>Nobody can see the beds</h3><p>Neonatal capacity changes hour by hour and lives in each unit's head. Referrers find out by phone, one hospital at a time, while the baby waits.</p></div>
+        <div class="constraint"><h3>Clinicians must decide</h3><p>The system can't just assign a hospital. Receiving teams need to offer a bed, and referrers need to choose between offers with the clinical picture in mind.</p></div>
+        <div class="constraint"><h3>Accountability is clinical</h3><p>Every escalation, call and handover may be reviewed later. The record has to be complete and impossible to quietly rewrite.</p></div>
+        <div class="constraint"><h3>Not every hospital is online</h3><p>Some facilities can't use an app at all. The process still has to work for them — by phone, through people — without breaking the data.</p></div>
+      </div>
+    </section>
+
+    <section id="architecture" class="wrap section" aria-labelledby="arch-title">
+      <header class="section-head" data-reveal>
+        <p class="kicker"><span>02</span> Architecture</p>
+        <h2 id="arch-title">One rulebook, <em>live everywhere</em></h2>
+      </header>
+
+      <figure class="arch" data-reveal>
+        <div class="arch-scroll">
+          <svg viewBox="0 0 1000 470" role="img" aria-labelledby="nicu-svg-title nicu-svg-desc">
+            <title id="nicu-svg-title">NICU Network architecture</title>
+            <desc id="nicu-svg-desc">Clinicians and coordination officers use a React single-page app. All reads and writes go through a FastAPI service on Render, which verifies Supabase-issued tokens and enforces roles, the referral state machine and coordination rules. Supabase provides Postgres, authentication and realtime. Database triggers make audit records append-only and turn critical alerts into urgent coordination cases. Realtime change events flow back to the app, which refetches through the API.</desc>
+            <defs>
+              <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="a-fill"/></marker>
+            </defs>
+
+            <rect x="20" y="40" width="190" height="390" rx="22" class="zone"/>
+            <text x="40" y="70" class="z-t">USERS</text>
+            <g class="node"><rect x="40" y="90" width="150" height="70" rx="14"/><text x="115" y="122" class="n-t">Referring</text><text x="115" y="144" class="n-s">clinicians</text></g>
+            <g class="node"><rect x="40" y="180" width="150" height="70" rx="14"/><text x="115" y="212" class="n-t">Receiving</text><text x="115" y="234" class="n-s">hospitals</text></g>
+            <g class="node"><rect x="40" y="270" width="150" height="70" rx="14"/><text x="115" y="302" class="n-t">Coordination</text><text x="115" y="324" class="n-s">officers · 24/7</text></g>
+            <g class="node hot"><rect x="40" y="360" width="150" height="56" rx="14"/><text x="115" y="394" class="n-t">React SPA</text></g>
+
+            <rect x="260" y="40" width="300" height="390" rx="22" class="zone"/>
+            <text x="280" y="70" class="z-t">RENDER · FASTAPI</text>
+            <g class="node"><rect x="280" y="90" width="260" height="70" rx="14"/><text x="410" y="122" class="n-t">Token check + roles</text><text x="410" y="144" class="n-s">JWKS (ES256) · HS256 fallback</text></g>
+            <g class="node hot"><rect x="280" y="180" width="260" height="90" rx="14"/><text x="410" y="214" class="n-t">Referral engine</text><text x="410" y="237" class="n-s">bed matching · offers</text><text x="410" y="256" class="n-s">state machine · bed holds</text></g>
+            <g class="node hot"><rect x="280" y="290" width="260" height="120" rx="14"/><text x="410" y="324" class="n-t">Coordination service</text><text x="410" y="347" class="n-s">shifts · case queues</text><text x="410" y="367" class="n-s">handovers · relays</text><text x="410" y="387" class="n-s">reports · contact reveal</text></g>
+
+            <rect x="610" y="40" width="370" height="390" rx="22" class="zone"/>
+            <text x="630" y="70" class="z-t">SUPABASE</text>
+            <g class="node"><rect x="630" y="90" width="160" height="70" rx="14"/><text x="710" y="122" class="n-t">Auth</text><text x="710" y="144" class="n-s">tokens · magic link</text></g>
+            <g class="node"><rect x="805" y="90" width="155" height="70" rx="14"/><text x="882" y="122" class="n-t">Realtime</text><text x="882" y="144" class="n-s">change events</text></g>
+            <g class="node hot"><rect x="630" y="180" width="330" height="230" rx="14"/><text x="795" y="214" class="n-t">Postgres</text><text x="795" y="242" class="n-s">row-level security</text><text x="795" y="266" class="n-s">append-only audit triggers</text><text x="795" y="290" class="n-s">alert → urgent case trigger</text><text x="795" y="314" class="n-s">atomic claim / resolve functions</text><text x="795" y="338" class="n-s">frozen report snapshots</text><text x="795" y="372" class="n-s">beds · referrals · offers · cases</text></g>
+
+            <path d="M190 388 H230 V225 H280" class="edge hot-edge" marker-end="url(#ah2)"/>
+            <path d="M230 345 V350 H280" class="edge hot-edge" marker-end="url(#ah2)"/>
+            <path d="M540 125 H630" class="edge" marker-end="url(#ah2)"/>
+            <path d="M540 225 H630" class="edge hot-edge" marker-end="url(#ah2)"/>
+            <path d="M540 350 H630" class="edge hot-edge" marker-end="url(#ah2)"/>
+            <path d="M882 180 V160" class="edge dash" marker-end="url(#ah2)"/>
+            <path d="M882 90 V24 H30 V388 H40" class="edge dash" marker-end="url(#ah2)"/>
+          </svg>
+        </div>
+        <figcaption><span class="scroll-hint">Swipe the diagram sideways. </span>Every write goes through the API, so the rules live in one place. Realtime (dashed) only signals that something changed; the app then refetches through the API.</figcaption>
+      </figure>
+    </section>
+
+    <section id="decisions" class="wrap section" aria-labelledby="dec-title">
+      <header class="section-head" data-reveal>
+        <p class="kicker"><span>03</span> Architecture decisions</p>
+        <h2 id="dec-title">Decisions that <em>carry clinical weight</em></h2>
+      </header>
+
+      <ol class="adrs">
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-01</p>
+          <h3>An API owns the rules; the database is the safety net</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>All writes go through a FastAPI service that verifies the user's token and role. Supabase supplies authentication, Postgres and realtime; row-level security and database functions guard the data underneath.</dd></div>
+            <div><dt>Why</dt><dd>Referral rules — who can see a referral, which transitions are legal, when a bed is held — are too important to spread across a browser app. One service is easier to reason about, test and audit, while database-level guards still hold if the API has a bug.</dd></div>
+            <div><dt>Trade-off</dt><dd>A second deployable to run, and an extra hop on every request compared with talking to Supabase directly.</dd></div>
+          </dl>
+        </li>
+
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-02</p>
+          <h3>Broadcast-and-offer matching, not automatic assignment</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>A new referral is sent only to hospitals with a free bed of the right unit (NICU or SCBU), the right type (inborn or outborn) and a suitable level of care. Each hospital can offer a bed; the referring clinician chooses between offers.</dd></div>
+            <div><dt>Why</dt><dd>It mirrors how clinicians already work, keeps the decision with the people accountable for it, and cuts out hospitals that would only say no.</dd></div>
+            <div><dt>Trade-off</dt><dd>Slower than auto-assigning the nearest bed, and it needs offers to expire cleanly when another hospital is chosen.</dd></div>
+          </dl>
+        </li>
+
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-03</p>
+          <h3>An explicit state machine for every referral</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>Referrals move through defined states — pending, offered, accepted, confirmed, in transfer, arrived, completed — and the API rejects any transition that isn't allowed. Accepting holds a bed in the same step.</dd></div>
+            <div><dt>Why</dt><dd>A baby can't be "arrived" before it was "in transfer". Making the lifecycle explicit turns whole classes of bugs into clear errors, and makes the audit trail readable.</dd></div>
+            <div><dt>Trade-off</dt><dd>Real-world exceptions need deliberate new transitions rather than quick edits.</dd></div>
+          </dl>
+        </li>
+
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-04</p>
+          <h3>Make the audit trail tamper-proof in the database</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>Case events, call logs and reported outcomes are append-only: database triggers reject any update or delete. Generated reports are frozen snapshots. Hospital status notes are never edited — they can only be marked "no longer current", once.</dd></div>
+            <div><dt>Why</dt><dd>In clinical governance the record is the product. Enforcing it in Postgres means no application bug, admin tool or future feature can quietly rewrite history.</dd></div>
+            <div><dt>Trade-off</dt><dd>Mistakes are corrected by adding new events, never by editing old ones — which the interface has to make easy.</dd></div>
+          </dl>
+        </li>
+
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-05</p>
+          <h3>Race-safe case claiming</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>Claiming a case is a single database function: it checks the officer's role and active shift, then assigns the case only if it is still open and unclaimed, recording the claim as an event in the same step.</dd></div>
+            <div><dt>Why</dt><dd>Two officers clicking the same urgent case at the same moment must never both believe they own it. A conditional update makes the database the referee: exactly one wins, the other gets a clear message.</dd></div>
+            <div><dt>Trade-off</dt><dd>Business logic lives partly in SQL, so it's versioned and reviewed with the migrations.</dd></div>
+          </dl>
+        </li>
+
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-06</p>
+          <h3>Privacy by default for family contact details</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>A family's phone number is stored for welfare checks but withheld from other hospitals until clinical confirmation. Inside the coordination console it stays hidden until an officer reveals it — with a reason code and a note, logged as an audit event.</dd></div>
+            <div><dt>Why</dt><dd>Data minimisation: people see personal data only when they have a reason, and every access is accountable.</dd></div>
+            <div><dt>Trade-off</dt><dd>One extra step for officers in a hurry; the reason codes keep it to a couple of taps.</dd></div>
+          </dl>
+        </li>
+
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-07</p>
+          <h3>Model the 24/7 operation, not just the data</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>Coordination is organised around 12-hour shifts in local time. Officers must be on shift to work a case; handovers keep ownership with the outgoing officer until someone accepts; reopening a closed case needs the coordination lead's approval. Critical alerts become urgent cases automatically, via a database trigger.</dd></div>
+            <div><dt>Why</dt><dd>Most failures in round-the-clock services happen at the seams — between shifts, between people. Making those seams explicit means a case is never ownerless.</dd></div>
+            <div><dt>Trade-off</dt><dd>More process in the software, which only works if it matches how the team actually operates — so each rule traces back to a numbered section of the operations spec.</dd></div>
+          </dl>
+        </li>
+
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-08</p>
+          <h3>Design for hospitals that can't use the app</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>"Relayed" referrals let a coordination officer hold one or both clinician sides of a referral by phone. They run in their own queue and never raise urgent alerts.</dd></div>
+            <div><dt>Why</dt><dd>Excluding offline facilities would exclude the babies they care for. The relay keeps them in the same process and data model, while suppressing alerts avoids flooding the team with noise about cases it is already handling.</dd></div>
+            <div><dt>Trade-off</dt><dd>Data for relayed cases is only as good as what's captured on the call.</dd></div>
+          </dl>
+        </li>
+
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-09</p>
+          <h3>Realtime as a signal, the API as the source</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>The app subscribes to database changes on beds, referrals and alerts, but uses each event only to invalidate cached queries, which then refetch through the API. Tokens are verified locally against Supabase's published keys, with a fallback for the legacy signing method.</dd></div>
+            <div><dt>Why</dt><dd>Screens update within moments of a bed freeing up, but every byte the user sees has still passed the API's permission checks. The token fallback kept sign-in working through Supabase's move to new signing keys.</dd></div>
+            <div><dt>Trade-off</dt><dd>A refetch per change is chattier than pushing data directly — fine at pilot scale, and the first thing to revisit at network scale.</dd></div>
+          </dl>
+        </li>
+      </ol>
+    </section>
+
+    <section id="next" class="wrap section" aria-labelledby="next-title">
+      <header class="section-head" data-reveal>
+        <p class="kicker"><span>04</span> Known limits &amp; roadmap</p>
+        <h2 id="next-title">What I'd <em>harden next</em></h2>
+      </header>
+      <ol class="next" data-reveal>
+        <li><span>01</span>Move bed holds into a single atomic database operation, so two simultaneous acceptances can never double-book the last cot.</li>
+        <li><span>02</span>Use per-request, user-scoped database access in the API so row-level security applies on every query, not only as a backstop.</li>
+        <li><span>03</span>Replace per-hospital lookups in bed matching with one joined query as the network grows beyond the pilot.</li>
+        <li><span>04</span>Add SMS alerts for hospitals with poor data coverage, and an automated test suite for the referral and coordination rules in CI.</li>
+      </ol>
+    </section>
+
+    <section class="wrap section contact case-end">
+      <p class="kicker" data-reveal><span>→</span> Next</p>
+      <h2 class="contact-title" data-reveal>Building something where <em>reliability matters?</em></h2>
+      <a class="big-mail" href="mailto:rafaelchisom@gmail.com" data-reveal>rafaelchisom@gmail.com <span aria-hidden="true">→</span></a>
+      <ul class="contact-links" data-reveal>
+        <li><a href="index.html#work">All projects</a></li>
+        <li><a href="dhaf.html">DHAF platform case study</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <p>© <span id="year">2026</span> Raphael Ariguzor</p>
+    <a href="index.html">← Back to portfolio</a>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

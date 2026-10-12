@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gym Log — Case study · Raphael Ariguzor</title>
+  <meta name="description" content="A social workout-tracking PWA with no backend server: row-level security as the authorisation layer, and aggregates that never leak raw data.">
+  <meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111317" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="case">
+  <a class="skip" href="#decisions">Skip to the decisions</a>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-grain" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="mark" href="index.html" aria-label="Raphael Ariguzor, home">RA</a>
+    <nav aria-label="Case study">
+      <a href="#architecture">Architecture</a>
+      <a href="#decisions">Decisions</a>
+      <a href="index.html#work" class="nav-cta">All projects</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="wrap case-hero">
+      <p class="terminal"><span class="prompt" aria-hidden="true">&gt;</span> case-study <span class="sep" aria-hidden="true">//</span> gym-log <span class="sep" aria-hidden="true">//</span> private repo<span class="caret" aria-hidden="true"></span></p>
+      <h1 class="case-title">A social fitness app with <em>no server to run</em></h1>
+      <p class="lede">Gym Log is an installable web app for a group of friends to log workouts, keep streaks, set monthly goals, compete on a leaderboard and nudge each other to train. I built it to need no backend server at all: the browser talks straight to Postgres, so the database itself has to be the security model.</p>
+
+      <dl class="case-meta">
+        <div><dt>Role</dt><dd>Sole designer and developer</dd></div>
+        <div><dt>Stack</dt><dd>Vanilla JS PWA · Supabase Auth &amp; Postgres · row-level security · SQL functions</dd></div>
+        <div><dt>Features</dt><dd>Sessions &amp; exercises · timer · tags · streaks · goals · leaderboard · nudges</dd></div>
+      </dl>
+    </section>
+
+    <section id="architecture" class="wrap section" aria-labelledby="arch-title">
+      <header class="section-head" data-reveal>
+        <p class="kicker"><span>01</span> Architecture</p>
+        <h2 id="arch-title">The database <em>is</em> the backend</h2>
+      </header>
+      <figure class="arch" data-reveal>
+        <div class="arch-scroll">
+          <svg viewBox="0 0 1000 330" role="img" aria-labelledby="gym-svg-title gym-svg-desc">
+            <title id="gym-svg-title">Gym Log architecture</title>
+            <desc id="gym-svg-desc">An installable web app on the phone talks directly to Supabase. Personal tables are protected by row-level security so each user reaches only their own rows. Shared views such as the leaderboard and the admin dashboard come from security-definer functions that return only aggregates.</desc>
+            <defs><marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="a-fill"/></marker></defs>
+
+            <g class="node hot"><rect x="20" y="110" width="200" height="110" rx="16"/><text x="120" y="152" class="n-t">Installable PWA</text><text x="120" y="176" class="n-s">home-screen app</text><text x="120" y="196" class="n-s">shell never cached</text></g>
+
+            <rect x="290" y="20" width="690" height="290" rx="22" class="zone"/>
+            <text x="310" y="50" class="z-t">SUPABASE</text>
+            <g class="node"><rect x="310" y="70" width="190" height="70" rx="14"/><text x="405" y="102" class="n-t">Auth</text><text x="405" y="124" class="n-s">email + password</text></g>
+            <g class="node hot"><rect x="310" y="160" width="300" height="130" rx="14"/><text x="460" y="194" class="n-t">Personal tables · RLS</text><text x="460" y="220" class="n-s">sessions · exercises · goals</text><text x="460" y="242" class="n-s">"only your own rows"</text><text x="460" y="264" class="n-s">nudges: send as you, read yours</text></g>
+            <g class="node hot"><rect x="640" y="70" width="320" height="130" rx="14"/><text x="800" y="104" class="n-t">Security-definer functions</text><text x="800" y="130" class="n-s">leaderboard → totals only</text><text x="800" y="152" class="n-s">admin insights → gated</text><text x="800" y="174" class="n-s">no raw rows ever returned</text></g>
+            <g class="node locked"><rect x="640" y="220" width="320" height="70" rx="14"/><text x="800" y="252" class="n-t">Admin list</text><text x="800" y="274" class="n-s">RLS on, no policies: unreadable</text></g>
+
+            <path d="M220 140 H260 V105 H310" class="edge" marker-end="url(#ah3)"/>
+            <path d="M220 190 H260 V225 H310" class="edge hot-edge" marker-end="url(#ah3)"/>
+            <path d="M220 165 H270 V8 H620 V110 H640" class="edge hot-edge" marker-end="url(#ah3)"/>
+            <path d="M800 200 V220" class="edge dash" marker-end="url(#ah3)"/>
+          </svg>
+        </div>
+        <figcaption><span class="scroll-hint">Swipe the diagram sideways. </span>With no server in between, every rule the app relies on is enforced by Postgres.</figcaption>
+      </figure>
+    </section>
+
+    <section id="decisions" class="wrap section" aria-labelledby="dec-title">
+      <header class="section-head" data-reveal>
+        <p class="kicker"><span>02</span> Architecture decisions</p>
+        <h2 id="dec-title">Small app, <em>serious boundaries</em></h2>
+      </header>
+      <ol class="adrs">
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-01</p>
+          <h3>No backend server: the browser talks to Postgres</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>A static, installable web app using Supabase for sign-in and data, with no API layer of my own.</dd></div>
+            <div><dt>Why</dt><dd>Zero servers to patch, scale or pay for, and changes ship in seconds. For a friends-sized app, an API layer would be cost without benefit.</dd></div>
+            <div><dt>Trade-off</dt><dd>Anyone can call the database with the app's public key, so nothing can rely on the front end behaving. The next three decisions exist because of this one.</dd></div>
+          </dl>
+        </li>
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-02</p>
+          <h3>Row-level security as the authorisation layer</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>Every table has row-level security. Sessions, exercises and goals are readable and writable only by their owner; a nudge can only be sent as yourself, read by its recipient, and marked seen by them. Check constraints bound the data, such as session length.</dd></div>
+            <div><dt>Why</dt><dd>With no server in the middle, the database is the only place a rule can be guaranteed.</dd></div>
+            <div><dt>Trade-off</dt><dd>Policies must be designed table by table — and they interact with views in ways that bite (see the next decision).</dd></div>
+          </dl>
+        </li>
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-03</p>
+          <h3>Shared views come from functions that return only totals</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>The leaderboard and the admin dashboard are security-definer functions: they can read everyone's rows inside the database but return only aggregates.</dd></div>
+            <div><dt>Why</dt><dd>The first leaderboard was a view, and it inherited row-level security — so each person saw a leaderboard of one. Rather than loosen the policies, I moved the aggregation into a function, so no one's individual workouts ever leave the database.</dd></div>
+            <div><dt>Trade-off</dt><dd>Security-definer functions run with elevated rights, so they must return only what they need to and pin their search path. The admin functions already do; the leaderboard function is next on the list.</dd></div>
+          </dl>
+        </li>
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-04</p>
+          <h3>An admin list nobody can read</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>Admins are listed in a table with row-level security enabled and no policies — invisible to every client. A function answers only "is the current user an admin?", and the insights function checks it before returning anything.</dd></div>
+            <div><dt>Why</dt><dd>The admin list can't be enumerated or edited from the app, and there is no client-side flag to tamper with.</dd></div>
+            <div><dt>Trade-off</dt><dd>Admins are added in the database console, which is fine for one or two people.</dd></div>
+          </dl>
+        </li>
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-05</p>
+          <h3>Privacy-light usage telemetry</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>One small event per app open: event name, app version, platform, and whether it is running as an installed app. The user is stamped by the database from the session, not sent by the client, and every field is length-checked.</dd></div>
+            <div><dt>Why</dt><dd>Enough to see adoption and whether people install it, without tracking behaviour — and nobody can log events as someone else.</dd></div>
+            <div><dt>Trade-off</dt><dd>Deliberately shallow: it answers "is it used?" rather than "how?".</dd></div>
+          </dl>
+        </li>
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-06</p>
+          <h3>Installable, but never stale; and data integrity you can audit</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>A web manifest makes it a home-screen app, while the app shell is served with no-cache headers so every update reaches every phone immediately. When the leaderboard looked gamed, I investigated with read-only queries — sessions per day, future dates, and gaps between entries — before changing any rules.</dd></div>
+            <div><dt>Why</dt><dd>Fast iteration without "have you tried reinstalling?", and fairness disputes settled with evidence.</dd></div>
+            <div><dt>Trade-off</dt><dd>No offline mode yet; the app needs a connection to log a session.</dd></div>
+          </dl>
+        </li>
+      </ol>
+    </section>
+
+    <section class="wrap section contact case-end">
+      <p class="kicker" data-reveal><span>→</span> Next</p>
+      <h2 class="contact-title" data-reveal>See the <em>bigger systems</em></h2>
+      <ul class="contact-links" data-reveal>
+        <li><a href="nicu.html">NICU Network case study</a></li>
+        <li><a href="dhaf.html">DHAF platform case study</a></li>
+        <li><a href="index.html#work">All projects</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <p>© <span id="year">2026</span> Raphael Ariguzor</p>
+    <a href="index.html">← Back to portfolio</a>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

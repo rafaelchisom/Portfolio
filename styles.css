@@ -413,6 +413,8 @@ code { font: 500 .86em/1 var(--mono); padding: 2px 6px; border-radius: 6px; back
 .case-end .contact-title { font-size: clamp(2.4rem, 7vw, 5.4rem); max-width: 16ch; }
 
 .p-case { color: var(--accent); }
+.p-private { background: var(--ink); color: var(--paper); }
+.p-private span { color: var(--accent); }
 .scroll-hint { display: none; color: var(--accent); }
 @media (max-width: 800px) { .scroll-hint { display: inline; } }
 
