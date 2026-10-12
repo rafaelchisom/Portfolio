@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Oya Quiz — Case study · Raphael Ariguzor</title>
+  <meta name="description" content="A real-time multiplayer quiz with AI-generated rounds and no game server: server-authoritative scoring in Postgres, capability tokens instead of accounts, and AI cost controls.">
+  <meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111317" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="case">
+  <a class="skip" href="#decisions">Skip to the decisions</a>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-grain" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="mark" href="index.html" aria-label="Raphael Ariguzor, home">RA</a>
+    <nav aria-label="Case study">
+      <a href="#architecture">Architecture</a>
+      <a href="#decisions">Decisions</a>
+      <a href="#next">Roadmap</a>
+      <a href="index.html#work" class="nav-cta">All projects</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="wrap case-hero">
+      <p class="terminal"><span class="prompt" aria-hidden="true">&gt;</span> case-study <span class="sep" aria-hidden="true">//</span> oyaquiz.com<span class="caret" aria-hidden="true"></span></p>
+      <h1 class="case-title">A live multiplayer game with <em>no game server</em></h1>
+      <p class="lede">Oya Quiz is a party quiz in the style of the big classroom games: the host puts questions on a TV, everyone answers on their phone against the clock, and the leaderboard updates between rounds. Players can also type any topic and get a fresh AI-written round. I built it in five days, with no game server: the rules, the clock and the scoring all live in Postgres.</p>
+
+      <dl class="case-meta">
+        <div><dt>Role</dt><dd>Sole designer and developer</dd></div>
+        <div><dt>Stack</dt><dd>JavaScript · Supabase Postgres, Realtime &amp; Edge Functions · OpenAI structured outputs</dd></div>
+        <div><dt>Status</dt><dd><span class="pulse" aria-hidden="true"></span> Live at <a href="https://oyaquiz.com" rel="noopener">oyaquiz.com</a></dd></div>
+      </dl>
+
+      <dl class="stats case-stats">
+        <div class="stat"><dt>Days from first commit to live</dt><dd>5</dd></div>
+        <div class="stat"><dt>Game servers to run</dt><dd>0</dd></div>
+        <div class="stat"><dt>Layers of AI cost control</dt><dd>3</dd></div>
+        <div class="stat"><dt>Max points per answer, scored server-side</dt><dd>1.5k</dd></div>
+      </dl>
+    </section>
+
+    <section id="architecture" class="wrap section" aria-labelledby="arch-title">
+      <header class="section-head" data-reveal>
+        <p class="kicker"><span>01</span> Architecture</p>
+        <h2 id="arch-title">The database <em>runs the game</em></h2>
+      </header>
+      <figure class="arch" data-reveal>
+        <div class="arch-scroll">
+          <svg viewBox="0 0 1000 440" role="img" aria-labelledby="oya-svg-title oya-svg-desc">
+            <title id="oya-svg-title">Oya Quiz architecture</title>
+            <desc id="oya-svg-desc">The host screen and player phones load a static web app. Every action is a call to a Postgres function that checks a secret token; game tables are read-only to the public and stream changes to every screen through Realtime. AI rounds come from an Edge Function that enforces daily limits and calls OpenAI with a strict JSON schema. Triggers copy gameplay into private, append-only stats tables, read only through a passcode-checked dashboard function.</desc>
+            <defs><marker id="ah4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="a-fill"/></marker></defs>
+
+            <rect x="20" y="40" width="200" height="380" rx="22" class="zone"/>
+            <text x="40" y="70" class="z-t">SCREENS</text>
+            <g class="node"><rect x="40" y="90" width="160" height="70" rx="14"/><text x="120" y="122" class="n-t">Host · TV</text><text x="120" y="144" class="n-s">host token</text></g>
+            <g class="node"><rect x="40" y="180" width="160" height="70" rx="14"/><text x="120" y="212" class="n-t">Player phones</text><text x="120" y="234" class="n-s">player tokens</text></g>
+            <g class="node"><rect x="40" y="330" width="160" height="70" rx="14"/><text x="120" y="362" class="n-t">Admin page</text><text x="120" y="384" class="n-s">passcode</text></g>
+
+            <rect x="270" y="40" width="710" height="380" rx="22" class="zone"/>
+            <text x="290" y="70" class="z-t">SUPABASE</text>
+            <g class="node hot"><rect x="290" y="90" width="300" height="130" rx="14"/><text x="440" y="124" class="n-t">Game functions</text><text x="440" y="150" class="n-s">create · join · advance</text><text x="440" y="172" class="n-s">answer · leave</text><text x="440" y="194" class="n-s">token-checked · server clock</text></g>
+            <g class="node"><rect x="620" y="90" width="340" height="130" rx="14"/><text x="790" y="124" class="n-t">Game tables</text><text x="790" y="150" class="n-s">public: read-only</text><text x="790" y="172" class="n-s">tokens: unreadable</text><text x="790" y="194" class="n-s">→ Realtime to every screen</text></g>
+            <g class="node hot"><rect x="290" y="240" width="300" height="80" rx="14"/><text x="440" y="274" class="n-t">Edge Function · AI rounds</text><text x="440" y="298" class="n-s">quotas · JSON schema · validation</text></g>
+            <g class="node locked"><rect x="620" y="240" width="340" height="160" rx="14"/><text x="790" y="276" class="n-t">Private stats</text><text x="790" y="302" class="n-s">filled by triggers · append-only</text><text x="790" y="324" class="n-s">AI usage · hashed IPs only</text><text x="790" y="346" class="n-s">no public access</text><text x="790" y="378" class="n-s">dashboard: bcrypt passcode</text></g>
+            <g class="node external"><rect x="290" y="340" width="300" height="60" rx="14"/><text x="440" y="376" class="n-t">OpenAI API · external</text></g>
+
+            <path d="M200 125 H245 V150 H290" class="edge hot-edge" marker-end="url(#ah4)"/>
+            <path d="M200 215 H245 V170 H290" class="edge hot-edge" marker-end="url(#ah4)"/>
+            <path d="M200 225 H260 V280 H290" class="edge" marker-end="url(#ah4)"/>
+            <path d="M590 155 H620" class="edge hot-edge" marker-end="url(#ah4)"/>
+            <path d="M440 320 V340" class="edge" marker-end="url(#ah4)"/>
+            <path d="M790 220 V240" class="edge dash" marker-end="url(#ah4)"/>
+            <path d="M960 155 H975 V30 H230 V195 H200" class="edge dash" marker-end="url(#ah4)"/>
+            <path d="M200 365 H245 V412 H605 V330 H620" class="edge" marker-end="url(#ah4)"/>
+          </svg>
+        </div>
+        <figcaption><span class="scroll-hint">Swipe the diagram sideways. </span>Clients never write to a table directly. Every move is a function call the database checks; Realtime (dashed) keeps every screen in step.</figcaption>
+      </figure>
+    </section>
+
+    <section id="decisions" class="wrap section" aria-labelledby="dec-title">
+      <header class="section-head" data-reveal>
+        <p class="kicker"><span>02</span> Architecture decisions</p>
+        <h2 id="dec-title">Fair, fast, and <em>cheap to run</em></h2>
+      </header>
+      <ol class="adrs">
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-01</p>
+          <h3>Secret tokens instead of accounts</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>Creating a game returns a host token; joining returns a player token. Tokens live in tables nobody can read, and every action has to present the right one.</dd></div>
+            <div><dt>Why</dt><dd>A party game dies at the sign-up screen. Tokens give zero-friction joining with a six-digit code, while still making it impossible to answer as someone else or run another person's game.</dd></div>
+            <div><dt>Trade-off</dt><dd>Lose the token and you lose your seat — acceptable for a game that lasts twenty minutes.</dd></div>
+          </dl>
+        </li>
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-02</p>
+          <h3>Tables are read-only; every move is a database function</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>The public can read game state, but all writes go through five functions: create, join, advance, answer and leave. The game is a small state machine — lobby, question, reveal, leaderboard, finished — that only the host's token can move forward.</dd></div>
+            <div><dt>Why</dt><dd>With no server of my own, the database had to be the referee. Functions make every rule — name length, unique names per game, legal state changes — impossible to bypass from the browser.</dd></div>
+            <div><dt>Trade-off</dt><dd>Game logic lives in SQL, which is less familiar to most front-end developers; the setup script is commented line by line and safe to re-run.</dd></div>
+          </dl>
+        </li>
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-03</p>
+          <h3>Score on the server's clock, not the player's</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>Answer time is measured by the database from the moment the question opened, with a 1.5-second grace window for network lag. Correct answers earn 1,000 points falling to 500 as time runs out, plus a streak bonus capped at +500. Each player can answer each question exactly once, enforced by the table's primary key.</dd></div>
+            <div><dt>Why</dt><dd>Anything measured in the browser can be faked. Server-side timing makes speed honest, the grace window keeps it fair on slow connections, and the key turns double-tapping into a no-op instead of a bug.</dd></div>
+            <div><dt>Trade-off</dt><dd>Players on very slow networks lose a little time to latency — the grace window covers typical cases.</dd></div>
+          </dl>
+        </li>
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-04</p>
+          <h3>Realtime keeps every screen in lockstep</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>The TV and every phone subscribe to changes on the game, players and answers. A "remote" mode shows the whole game on each phone, for groups that aren't in the same room.</dd></div>
+            <div><dt>Why</dt><dd>When the host moves to the next question, every screen changes at once — the feel of a live game show, with no websocket server to build or host.</dd></div>
+            <div><dt>Trade-off</dt><dd>Change events are public for game tables, so anything sensitive has to stay out of them (see the roadmap).</dd></div>
+          </dl>
+        </li>
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-05</p>
+          <h3>AI rounds behind a server function with a strict schema</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>"Make a category with AI" calls an Edge Function that holds the OpenAI key and requests output against a strict JSON schema. Every question is then validated — exactly four options, a valid answer — and anything malformed is dropped. The app reminds the host to check questions before playing.</dd></div>
+            <div><dt>Why</dt><dd>Keys never reach the browser, and a schema plus validation means a bad model response can't break a live game in front of a room of people.</dd></div>
+            <div><dt>Trade-off</dt><dd>A round takes a few seconds to generate, so it's made in setup, not mid-game.</dd></div>
+          </dl>
+        </li>
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-06</p>
+          <h3>Three layers of AI cost control</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>Daily limits per device, per network and for the whole site, checked and counted in one atomic database call. Networks are stored only as hashes — never raw IP addresses. Failed generations are refunded, the host has a code that skips limits, and if the limits can't be checked the function refuses rather than spending.</dd></div>
+            <div><dt>Why</dt><dd>A public "generate anything" button is an open invitation to run up a bill. The atomic check stops two simultaneous requests both slipping past the cap, and refunds mean outages don't punish users.</dd></div>
+            <div><dt>Trade-off</dt><dd>Shared networks, like a school or office, share one network allowance.</dd></div>
+          </dl>
+        </li>
+        <li class="adr" data-reveal>
+          <p class="adr-id">ADR-07</p>
+          <h3>Analytics that can't slow the game or leak</h3>
+          <dl>
+            <div><dt>Decision</dt><dd>Database triggers copy games, players and answers into private, append-only stats tables that survive when games are deleted. A dashboard reads them through one function that checks a bcrypt-hashed passcode; AI usage is logged on a best-effort basis that never blocks a reply.</dd></div>
+            <div><dt>Why</dt><dd>Questions like "which ones are too hard?" and "what topics do people ask the AI for?" need history, but gameplay must never wait on analytics, and none of it should be public.</dd></div>
+            <div><dt>Trade-off</dt><dd>One dashboard user with a passcode, not per-person accounts — right-sized for a solo product.</dd></div>
+          </dl>
+        </li>
+      </ol>
+    </section>
+
+    <section id="next" class="wrap section" aria-labelledby="next-title">
+      <header class="section-head" data-reveal>
+        <p class="kicker"><span>03</span> Known limits &amp; roadmap</p>
+        <h2 id="next-title">What I'd <em>harden next</em></h2>
+      </header>
+      <ol class="next" data-reveal>
+        <li><span>01</span>Move correct answers out of the publicly readable game record into a private table, released only at the reveal — so a determined player can't look them up mid-question.</li>
+        <li><span>02</span>Rate-limit game creation and joining the way AI rounds already are.</li>
+        <li><span>03</span>Give Oya Quiz its own database schema instead of a shared project with name prefixes.</li>
+        <li><span>04</span>Add automated tests for the scoring and game-state functions, run against a throwaway database on every change.</li>
+      </ol>
+    </section>
+
+    <section class="wrap section contact case-end">
+      <p class="kicker" data-reveal><span>→</span> Next</p>
+      <h2 class="contact-title" data-reveal>Play it, then <em>let's talk</em></h2>
+      <a class="big-mail" href="mailto:rafaelchisom@gmail.com" data-reveal>rafaelchisom@gmail.com <span aria-hidden="true">→</span></a>
+      <ul class="contact-links" data-reveal>
+        <li><a href="https://oyaquiz.com" rel="noopener">Play Oya Quiz <span aria-hidden="true">↗</span></a></li>
+        <li><a href="nicu.html">NICU Network case study</a></li>
+        <li><a href="index.html#work">All projects</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <p>© <span id="year">2026</span> Raphael Ariguzor</p>
+    <a href="index.html">← Back to portfolio</a>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
