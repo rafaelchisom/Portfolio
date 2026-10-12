@@ -6,7 +6,7 @@
   <title>Raphael Ariguzor — Lead AI Engineer</title>
   <meta name="description" content="Raphael Ariguzor is a Lead AI Engineer in Hull, UK, building machine-learning and generative-AI products, with over a decade of software engineering across mobile, web and data.">
   <meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#14161a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#111317" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Raphael Ariguzor — Lead AI Engineer">
   <meta property="og:description" content="AI engineering, machine learning and over a decade of software development across mobile, web and data.">
@@ -15,9 +15,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <a class="skip" href="#experience">Skip to experience</a>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-grain" aria-hidden="true"></div>
 
   <header class="top">
     <a class="mark" href="#" aria-label="Raphael Ariguzor, back to top">RA</a>
@@ -30,32 +33,49 @@
   </header>
 
   <main>
-    <section class="hero wrap">
-      <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Lead AI Engineer at SmartSearch · Hull, UK</p>
-      <h1>Raphael Ariguzor</h1>
-      <p class="lede">I design and ship <em>AI-powered software</em> — machine learning, generative AI and the systems around them — after more than a decade building <em>mobile</em>, <em>web</em> and <em>data</em> products.</p>
-      <div class="hero-actions">
-        <a class="btn btn-solid" href="#experience">See my experience</a>
-        <a class="btn btn-line" href="mailto:rafaelchisom@gmail.com">Email me</a>
+    <!-- ── Hero ─────────────────────────────────────────────── -->
+    <section class="hero">
+      <canvas class="net" aria-hidden="true"></canvas>
+      <div class="wrap hero-inner">
+        <p class="terminal"><span class="prompt" aria-hidden="true">&gt;</span> Lead AI Engineer @ SmartSearch <span class="sep" aria-hidden="true">//</span> Hull, UK<span class="caret" aria-hidden="true"></span></p>
+        <h1 class="name" aria-label="Raphael Ariguzor"><span class="scramble" data-text="Raphael" aria-hidden="true">Raphael</span> <span class="scramble outline" data-text="Ariguzor" aria-hidden="true">Ariguzor</span></h1>
+        <p class="typed-line">I build <span class="typed" data-words="machine-learning models|generative-AI products|mobile banking apps|data pipelines|systems that scale">machine-learning models</span><span class="typed-caret" aria-hidden="true"></span></p>
+        <p class="lede">More than a decade turning ideas into reliable software — from Xamarin apps for banks and insurers to AI strategy and engineering today.</p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="#experience">See my experience <span aria-hidden="true">→</span></a>
+          <a class="btn btn-glass" href="mailto:rafaelchisom@gmail.com">Email me</a>
+        </div>
       </div>
-      <dl class="facts">
-        <div><dt>Focus</dt><dd>AI engineering &amp; machine learning</dd></div>
-        <div><dt>Education</dt><dd>MSc AI &amp; Data Science, University of Hull</dd></div>
-        <div><dt>Also</dt><dd>IT Lead, Digital Healthcare Access Foundation</dd></div>
-      </dl>
+      <div class="wrap">
+        <dl class="stats">
+          <div class="stat"><dt>Years building software</dt><dd><span class="count" data-to="12">12</span>+</dd></div>
+          <div class="stat"><dt>Roles, from banking to AI</dt><dd><span class="count" data-to="10">10</span></dd></div>
+          <div class="stat"><dt>Public projects on GitHub</dt><dd><span class="count" data-to="8">8</span></dd></div>
+          <div class="stat"><dt>MSc, University of Hull</dt><dd>AI<span class="amp">&amp;</span>DS</dd></div>
+        </dl>
+      </div>
     </section>
 
-    <section id="experience" class="wrap section" aria-labelledby="exp-title">
-      <div class="section-head">
-        <p class="kicker">01 — Experience</p>
-        <h2 id="exp-title">Where I've worked</h2>
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>Generative AI</span><span>Machine learning</span><span>Prompt engineering</span><span>Deep learning</span><span>C# · .NET</span><span>Xamarin</span><span>Python</span><span>ETL pipelines</span><span>Azure DevOps</span><span>PostgreSQL</span>
+        <span>Generative AI</span><span>Machine learning</span><span>Prompt engineering</span><span>Deep learning</span><span>C# · .NET</span><span>Xamarin</span><span>Python</span><span>ETL pipelines</span><span>Azure DevOps</span><span>PostgreSQL</span>
       </div>
+    </div>
 
-      <ol class="jobs">
-        <li class="job">
+    <!-- ── Experience ───────────────────────────────────────── -->
+    <section id="experience" class="wrap section" aria-labelledby="exp-title">
+      <header class="section-head" data-reveal>
+        <p class="kicker"><span>01</span> Experience</p>
+        <h2 id="exp-title">Where I've <em>worked</em></h2>
+      </header>
+
+      <ol class="timeline">
+        <li class="job is-now" data-reveal>
           <p class="j-when">Jun 2026 — Present</p>
-          <div class="j-body">
-            <h3>Lead AI Engineer <span class="j-at">SmartSearch</span></h3>
+          <div class="j-card">
+            <h3>Lead AI Engineer</h3>
+            <p class="j-at">SmartSearch</p>
             <ul class="j-points">
               <li>Leading the design, development and deployment of AI-powered solutions.</li>
               <li>Driving AI strategy and innovation across products and services.</li>
@@ -63,20 +83,22 @@
             </ul>
           </div>
         </li>
-        <li class="job">
+        <li class="job is-now" data-reveal>
           <p class="j-when">Present</p>
-          <div class="j-body">
-            <h3>IT Lead <span class="j-at">Digital Healthcare Access Foundation</span></h3>
+          <div class="j-card">
+            <h3>IT Lead</h3>
+            <p class="j-at">Digital Healthcare Access Foundation</p>
             <ul class="j-points">
               <li>Leading the non-profit's technology: digital platforms, infrastructure, automation, cybersecurity and process improvement.</li>
               <li>Rebuilt and hosts <a href="https://dhafinitiatives.org" rel="noopener">dhafinitiatives.org</a> on PostgreSQL, Docker and Render.</li>
             </ul>
           </div>
         </li>
-        <li class="job">
+        <li class="job" data-reveal>
           <p class="j-when">Dec 2024 — May 2026</p>
-          <div class="j-body">
-            <h3>AI Business Systems Developer <span class="j-at">ResQ</span></h3>
+          <div class="j-card">
+            <h3>AI Business Systems Developer</h3>
+            <p class="j-at">ResQ</p>
             <ul class="j-points">
               <li>Designed and implemented AI-driven solutions to optimise business processes, using advanced prompt engineering.</li>
               <li>Built and maintained ETL pipelines for data integration and processing.</li>
@@ -84,10 +106,11 @@
             </ul>
           </div>
         </li>
-        <li class="job">
+        <li class="job" data-reveal>
           <p class="j-when">Nov 2022 — Nov 2024</p>
-          <div class="j-body">
-            <h3>Advanced AI Trainer <span class="j-at">Invisible Technologies Inc.</span></h3>
+          <div class="j-card">
+            <h3>Advanced AI Trainer</h3>
+            <p class="j-at">Invisible Technologies Inc.</p>
             <ul class="j-points">
               <li>Developed and improved machine-learning models, including deep learning and reinforcement learning.</li>
               <li>Managed the AI development lifecycle from data collection to performance evaluation, and supervised data annotation.</li>
@@ -95,30 +118,33 @@
             </ul>
           </div>
         </li>
-        <li class="job">
+        <li class="job" data-reveal>
           <p class="j-when">Jan 2022 — Dec 2022</p>
-          <div class="j-body">
-            <h3>Xamarin Developer <span class="j-at">Sterling Bank Plc</span></h3>
+          <div class="j-card">
+            <h3>Xamarin Developer</h3>
+            <p class="j-at">Sterling Bank Plc</p>
             <ul class="j-points">
               <li>Extended the Sterling One banking app across mobile devices with Xamarin.Forms.</li>
               <li>Developed cloud-based SaaS payment products in an agile product team, with unit testing and documentation.</li>
             </ul>
           </div>
         </li>
-        <li class="job">
+        <li class="job" data-reveal>
           <p class="j-when">Jul 2022 — Sep 2022</p>
-          <div class="j-body">
-            <h3>Full-stack Developer <span class="j-at">Parthian Partners</span></h3>
+          <div class="j-card">
+            <h3>Full-stack Developer</h3>
+            <p class="j-at">Parthian Partners</p>
             <ul class="j-points">
               <li>Designed the Dealerfront application for the investment department with .NET Core, C#, SQL and Angular.</li>
               <li>Strengthened backend services and reported monthly to executive management.</li>
             </ul>
           </div>
         </li>
-        <li class="job">
+        <li class="job" data-reveal>
           <p class="j-when">Jun 2018 — Sep 2022</p>
-          <div class="j-body">
-            <h3>Xamarin &amp; C# Developer <span class="j-at">AXA Mansard</span></h3>
+          <div class="j-card">
+            <h3>Xamarin &amp; C# Developer</h3>
+            <p class="j-at">AXA Mansard</p>
             <ul class="j-points">
               <li>Team lead for mobile application development (myAXAsol).</li>
               <li>Developed the service-desk web application and supported network infrastructure.</li>
@@ -126,207 +152,200 @@
             </ul>
           </div>
         </li>
+        <li class="job job-earlier" data-reveal>
+          <p class="j-when">2014 — 2018</p>
+          <details class="j-card earlier">
+            <summary><h3>Earlier roles</h3><span class="earlier-hint">3 roles — show</span></summary>
+            <ul>
+              <li><strong>Application &amp; Database Manager</strong>Access Bank Plc · 2017 — 2018</li>
+              <li><strong>Business Development Manager</strong>Direct Digital Limited · 2016 — 2017</li>
+              <li><strong>Software Developer Intern</strong>Cyberspace Nigeria · 2014 — 2016</li>
+            </ul>
+          </details>
+        </li>
       </ol>
-
-      <details class="earlier">
-        <summary>Earlier roles, 2014 — 2018</summary>
-        <ul>
-          <li><strong>Application &amp; Database Manager</strong>, Access Bank Plc <span>2017 — 2018</span></li>
-          <li><strong>Business Development Manager</strong>, Direct Digital Limited <span>2016 — 2017</span></li>
-          <li><strong>Software Developer Intern</strong>, Cyberspace Nigeria <span>2014 — 2016</span></li>
-        </ul>
-      </details>
     </section>
 
+    <!-- ── Projects ─────────────────────────────────────────── -->
     <section id="work" class="wrap section" aria-labelledby="work-title">
-      <div class="section-head">
-        <p class="kicker">02 — Projects</p>
-        <h2 id="work-title">Things I've built</h2>
-      </div>
+      <header class="section-head" data-reveal>
+        <p class="kicker"><span>02</span> Projects</p>
+        <h2 id="work-title">Things I've <em>built</em></h2>
+      </header>
 
-      <div class="filters" role="group" aria-label="Filter projects">
+      <div class="filters" role="group" aria-label="Filter projects" data-reveal>
         <button type="button" class="chip is-on" data-filter="all" aria-pressed="true">All</button>
         <button type="button" class="chip" data-filter="web" aria-pressed="false">Web</button>
         <button type="button" class="chip" data-filter="mobile" aria-pressed="false">Mobile</button>
         <button type="button" class="chip" data-filter="data" aria-pressed="false">Data &amp; ML</button>
       </div>
 
-      <ol class="projects">
-        <li class="project" data-tags="web">
-          <div class="p-num" aria-hidden="true">01</div>
-          <div class="p-body">
-            <h3>DHAF website</h3>
-            <p>The public website and content-management system for the Digital Healthcare Access Foundation. I moved it from a cPanel/MySQL package to PostgreSQL on Supabase, containerised it with Docker on Render, put uploads on Supabase Storage, and made the public site work properly on phones.</p>
-            <ul class="tags"><li>PHP</li><li>PostgreSQL</li><li>Supabase</li><li>Docker</li><li>Render</li></ul>
-          </div>
+      <ul class="projects">
+        <li class="project feature" data-tags="web" data-reveal>
+          <div class="p-top"><span class="p-num">01</span><span class="p-live"><span class="pulse" aria-hidden="true"></span>Live</span></div>
+          <h3>DHAF website</h3>
+          <p>The public website and content-management system for the Digital Healthcare Access Foundation. Moved from a cPanel/MySQL package to PostgreSQL on Supabase, containerised with Docker on Render, with uploads on Supabase Storage and a mobile-first public site.</p>
+          <ul class="tags"><li>PHP</li><li>PostgreSQL</li><li>Supabase</li><li>Docker</li><li>Render</li></ul>
           <div class="p-links">
             <a href="https://dhafinitiatives.org" rel="noopener">Live site <span aria-hidden="true">↗</span></a>
             <a href="https://github.com/rafaelchisom/hsi-website" rel="noopener">Code <span aria-hidden="true">↗</span></a>
           </div>
         </li>
 
-        <li class="project" data-tags="web">
-          <div class="p-num" aria-hidden="true">02</div>
-          <div class="p-body">
-            <h3>Oya Quiz</h3>
-            <p>A live multiplayer quiz game. The host runs it on a big screen while players join from their phones, with real-time updates. Players can type any topic to get a fresh AI-generated round, and a stats dashboard tracks games, players and the hardest questions.</p>
-            <ul class="tags"><li>JavaScript</li><li>Supabase Realtime</li><li>AI generation</li></ul>
-          </div>
+        <li class="project feature" data-tags="web" data-reveal>
+          <div class="p-top"><span class="p-num">02</span><span class="p-live"><span class="pulse" aria-hidden="true"></span>Live</span></div>
+          <h3>Oya Quiz</h3>
+          <p>A live multiplayer quiz game. The host runs it on a big screen while players join from their phones, with real-time updates. Players can type any topic to get a fresh AI-generated round, and a stats dashboard tracks games, players and the hardest questions.</p>
+          <ul class="tags"><li>JavaScript</li><li>Supabase Realtime</li><li>AI generation</li></ul>
           <div class="p-links">
             <a href="https://oyaquiz.com" rel="noopener">Live site <span aria-hidden="true">↗</span></a>
             <a href="https://github.com/rafaelchisom/Oya-Quiz" rel="noopener">Code <span aria-hidden="true">↗</span></a>
           </div>
         </li>
 
-        <li class="project" data-tags="web">
-          <div class="p-num" aria-hidden="true">03</div>
-          <div class="p-body">
-            <h3>Slide Roulette &amp; Trib3 Slide Night</h3>
-            <p>An app for presentation nights. Guests claim topics, hit "Surprise me", swap and suggest topics; on the night, Showtime mode spins for the next presenter and runs a 10-minute timer with a chime and confetti. Trib3 Slide Night is a re-themed edition sharing the same backend.</p>
-            <ul class="tags"><li>JavaScript</li><li>Supabase</li><li>SQL</li></ul>
-          </div>
+        <li class="project" data-tags="web" data-reveal>
+          <div class="p-top"><span class="p-num">03</span></div>
+          <h3>Slide Roulette &amp; Trib3 Slide Night</h3>
+          <p>An app for presentation nights. Guests claim topics, hit "Surprise me", swap and suggest topics; on the night, Showtime mode spins for the next presenter and runs a 10-minute timer with a chime and confetti.</p>
+          <ul class="tags"><li>JavaScript</li><li>Supabase</li><li>SQL</li></ul>
           <div class="p-links">
             <a href="https://github.com/rafaelchisom/slide-roulette" rel="noopener">Code <span aria-hidden="true">↗</span></a>
             <a href="https://github.com/rafaelchisom/Tribesocial" rel="noopener">Trib3 edition <span aria-hidden="true">↗</span></a>
           </div>
         </li>
 
-        <li class="project" data-tags="web">
-          <div class="p-num" aria-hidden="true">04</div>
-          <div class="p-body">
-            <h3>Bible Verse Finder</h3>
-            <p>A clean, responsive web app: enter a topic like anxiety, hope or grief and get relevant Bible verses back, using the OpenAI API behind an ASP.NET Core Razor Pages front end.</p>
-            <ul class="tags"><li>C#</li><li>ASP.NET Core</li><li>OpenAI API</li><li>Docker</li></ul>
-          </div>
+        <li class="project" data-tags="web" data-reveal>
+          <div class="p-top"><span class="p-num">04</span></div>
+          <h3>Bible Verse Finder</h3>
+          <p>Enter a topic like anxiety, hope or grief and get relevant Bible verses back, using the OpenAI API behind an ASP.NET Core Razor Pages front end.</p>
+          <ul class="tags"><li>C#</li><li>ASP.NET Core</li><li>OpenAI API</li><li>Docker</li></ul>
           <div class="p-links">
             <a href="https://github.com/rafaelchisom/BibleVerseFinderApp" rel="noopener">Code <span aria-hidden="true">↗</span></a>
           </div>
         </li>
 
-        <li class="project" data-tags="data">
-          <div class="p-num" aria-hidden="true">05</div>
-          <div class="p-body">
-            <h3>Leather defect detection</h3>
-            <p>A U-Net convolutional neural network that finds defects across six classes in images of leather. Images are pre-processed with OpenCV, split 80/20 for training and testing, and segmented with a Keras model.</p>
-            <ul class="tags"><li>Python</li><li>TensorFlow / Keras</li><li>OpenCV</li><li>scikit-learn</li></ul>
-          </div>
+        <li class="project" data-tags="data" data-reveal>
+          <div class="p-top"><span class="p-num">05</span></div>
+          <h3>Leather defect detection</h3>
+          <p>A U-Net convolutional neural network that finds defects across six classes in images of leather, with OpenCV pre-processing, an 80/20 train/test split and Keras segmentation.</p>
+          <ul class="tags"><li>Python</li><li>TensorFlow / Keras</li><li>OpenCV</li></ul>
           <div class="p-links">
             <a href="https://github.com/rafaelchisom/ML-projects" rel="noopener">Notebook <span aria-hidden="true">↗</span></a>
           </div>
         </li>
 
-        <li class="project" data-tags="data">
-          <div class="p-num" aria-hidden="true">06</div>
-          <div class="p-body">
-            <h3>Maternal health data mining</h3>
-            <p>Analysis of patients' health-screening records: data cleaning, clustering, principal component analysis, association-rule mining and statistical modelling to surface patterns in maternal health.</p>
-            <ul class="tags"><li>Python</li><li>pandas</li><li>scikit-learn</li><li>statsmodels</li></ul>
-          </div>
+        <li class="project" data-tags="data" data-reveal>
+          <div class="p-top"><span class="p-num">06</span></div>
+          <h3>Maternal health data mining</h3>
+          <p>Health-screening records analysed with clustering, principal component analysis, association-rule mining and statistical modelling to surface patterns in maternal health.</p>
+          <ul class="tags"><li>Python</li><li>pandas</li><li>scikit-learn</li><li>statsmodels</li></ul>
           <div class="p-links">
             <a href="https://github.com/rafaelchisom/ML-projects" rel="noopener">Notebook <span aria-hidden="true">↗</span></a>
           </div>
         </li>
 
-        <li class="project" data-tags="mobile">
-          <div class="p-num" aria-hidden="true">07</div>
-          <div class="p-body">
-            <h3>Erranders</h3>
-            <p>A cross-platform mobile app that connects customers with errand runners, with profiles, payment-method management and support screens.</p>
-            <ul class="tags"><li>C#</li><li>Xamarin.Forms</li><li>Android</li><li>iOS</li></ul>
-          </div>
+        <li class="project" data-tags="mobile" data-reveal>
+          <div class="p-top"><span class="p-num">07</span></div>
+          <h3>Erranders</h3>
+          <p>A cross-platform mobile app that connects customers with errand runners, with profiles, payment-method management and support screens.</p>
+          <ul class="tags"><li>C#</li><li>Xamarin.Forms</li><li>Android</li><li>iOS</li></ul>
           <div class="p-links">
             <a href="https://github.com/rafaelchisom/Erranders" rel="noopener">Code <span aria-hidden="true">↗</span></a>
           </div>
         </li>
 
-        <li class="project" data-tags="mobile">
-          <div class="p-num" aria-hidden="true">08</div>
-          <div class="p-body">
-            <h3>SOL Lite (Axasollite)</h3>
-            <p>A Xamarin insurance app for selling insurance products on the go.</p>
-            <ul class="tags"><li>C#</li><li>Xamarin</li><li>Mobile</li></ul>
-          </div>
+        <li class="project" data-tags="mobile" data-reveal>
+          <div class="p-top"><span class="p-num">08</span></div>
+          <h3>SOL Lite (Axasollite)</h3>
+          <p>A Xamarin insurance app for selling insurance products on the go.</p>
+          <ul class="tags"><li>C#</li><li>Xamarin</li><li>Mobile</li></ul>
           <div class="p-links">
             <a href="https://github.com/rafaelchisom/Axasollite" rel="noopener">Code <span aria-hidden="true">↗</span></a>
           </div>
         </li>
-      </ol>
+      </ul>
     </section>
 
+    <!-- ── Skills & credentials ─────────────────────────────── -->
     <section id="skills" class="wrap section" aria-labelledby="skills-title">
-      <div class="section-head">
-        <p class="kicker">03 — Skills &amp; credentials</p>
-        <h2 id="skills-title">What I work with</h2>
-      </div>
+      <header class="section-head" data-reveal>
+        <p class="kicker"><span>03</span> Skills &amp; credentials</p>
+        <h2 id="skills-title">What I work <em>with</em></h2>
+      </header>
       <div class="skills">
-        <div class="skill">
-          <h3>AI &amp; data</h3>
+        <div class="skill" data-reveal>
+          <h3><span class="s-ico" aria-hidden="true">◆</span> AI &amp; data</h3>
           <ul><li>Generative AI</li><li>Prompt engineering</li><li>Machine learning</li><li>Deep &amp; reinforcement learning</li><li>TensorFlow / Keras</li><li>scikit-learn &amp; pandas</li><li>ETL pipelines</li></ul>
         </div>
-        <div class="skill">
-          <h3>Software</h3>
+        <div class="skill" data-reveal>
+          <h3><span class="s-ico" aria-hidden="true">◇</span> Software</h3>
           <ul><li>C# &amp; .NET Core</li><li>Xamarin.Forms</li><li>Python</li><li>JavaScript &amp; Angular</li><li>PHP</li><li>SQL</li></ul>
         </div>
-        <div class="skill">
-          <h3>Platforms</h3>
+        <div class="skill" data-reveal>
+          <h3><span class="s-ico" aria-hidden="true">▲</span> Platforms</h3>
           <ul><li>Azure DevOps</li><li>PostgreSQL &amp; Supabase</li><li>Docker</li><li>Render</li><li>Jira &amp; Confluence</li></ul>
         </div>
-        <div class="skill">
-          <h3>Leadership</h3>
+        <div class="skill" data-reveal>
+          <h3><span class="s-ico" aria-hidden="true">●</span> Leadership</h3>
           <ul><li>AI strategy</li><li>Team leadership</li><li>Agile delivery</li><li>IT service management</li><li>Cybersecurity</li></ul>
         </div>
       </div>
+
+      <div class="creds">
+        <div class="cred" data-reveal>
+          <h3>Education</h3>
+          <ul>
+            <li><strong>MSc, Artificial Intelligence &amp; Data Science</strong><span>University of Hull · 2022 — 2023</span></li>
+            <li><strong>BTech, Computer Science</strong><span>Bells University of Technology · 2009 — 2015</span></li>
+          </ul>
+        </div>
+        <div class="cred" data-reveal>
+          <h3>Certifications</h3>
+          <ul>
+            <li><strong>Effective Agile Project Management with Jira &amp; Confluence</strong></li>
+            <li><strong>Lean Six Sigma Yellow Belt (ICYB)</strong></li>
+            <li><strong>ITIL Foundation</strong></li>
+          </ul>
+        </div>
+        <div class="cred" data-reveal>
+          <h3>Languages</h3>
+          <ul>
+            <li><strong>English</strong><span>Full professional</span></li>
+            <li><strong>Spanish</strong><span>Limited working</span></li>
+          </ul>
+        </div>
+      </div>
     </section>
 
-    <section class="wrap creds" aria-label="Education, certifications and languages">
-      <div class="cred">
-        <h3>Education</h3>
-        <ul>
-          <li><strong>MSc, Artificial Intelligence &amp; Data Science</strong><span>University of Hull · 2022 — 2023</span></li>
-          <li><strong>BTech, Computer Science</strong><span>Bells University of Technology · 2009 — 2015</span></li>
-        </ul>
-      </div>
-      <div class="cred">
-        <h3>Certifications</h3>
-        <ul>
-          <li><strong>Effective Agile Project Management with Jira &amp; Confluence</strong></li>
-          <li><strong>Lean Six Sigma Yellow Belt (ICYB)</strong></li>
-          <li><strong>ITIL Foundation</strong></li>
-        </ul>
-      </div>
-      <div class="cred">
-        <h3>Languages</h3>
-        <ul>
-          <li><strong>English</strong><span>Full professional</span></li>
-          <li><strong>Spanish</strong><span>Limited working</span></li>
-        </ul>
-      </div>
-    </section>
-
+    <!-- ── About ────────────────────────────────────────────── -->
     <section id="about" class="wrap section about" aria-labelledby="about-title">
-      <div class="section-head">
-        <p class="kicker">04 — About</p>
-        <h2 id="about-title">Software that serves the organisation</h2>
-      </div>
-      <div class="about-body">
-        <p>I'm a software engineer who moved from mobile banking and insurance apps into AI. I like building reliable, user-friendly systems that make organisations work better, and leading the teams that build them.</p>
+      <header class="section-head" data-reveal>
+        <p class="kicker"><span>04</span> About</p>
+        <h2 id="about-title">Software that <em>serves</em> the organisation</h2>
+      </header>
+      <div class="about-body" data-reveal>
+        <p class="about-big">I'm a software engineer who moved from mobile banking and insurance apps into AI. I like building reliable, user-friendly systems that make organisations work better — and leading the teams that build them.</p>
         <p>Today I lead AI engineering at SmartSearch. Before that I built AI-driven business systems at ResQ, trained and evaluated models at Invisible Technologies, and spent years shipping Xamarin and .NET apps for Sterling Bank and AXA Mansard. I also lead technology for the <a href="https://dhafinitiatives.org" rel="noopener">Digital Healthcare Access Foundation</a>, a non-profit strengthening health systems through digital tools.</p>
       </div>
     </section>
 
-    <section id="contact" class="wrap section contact" aria-labelledby="contact-title">
-      <p class="kicker">05 — Contact</p>
-      <h2 id="contact-title">Let's build something.</h2>
-      <a class="big-mail" href="mailto:rafaelchisom@gmail.com">rafaelchisom@gmail.com</a>
-      <ul class="contact-links">
-        <li><a href="https://www.linkedin.com/in/raphael-ariguzor-59068612b" rel="noopener">LinkedIn — Raphael Ariguzor <span aria-hidden="true">↗</span></a></li>
-        <li><a href="https://github.com/rafaelchisom" rel="noopener">GitHub — rafaelchisom <span aria-hidden="true">↗</span></a></li>
-      </ul>
+    <!-- ── Contact ──────────────────────────────────────────── -->
+    <section id="contact" class="section contact" aria-labelledby="contact-title">
+      <div class="wrap">
+        <p class="kicker" data-reveal><span>05</span> Contact</p>
+        <h2 id="contact-title" class="contact-title" data-reveal>Let's build <em>something.</em></h2>
+        <a class="big-mail" href="mailto:rafaelchisom@gmail.com" data-reveal>rafaelchisom@gmail.com <span aria-hidden="true">→</span></a>
+        <ul class="contact-links" data-reveal>
+          <li><a href="https://www.linkedin.com/in/raphael-ariguzor-59068612b" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://github.com/rafaelchisom" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li>
+        </ul>
+      </div>
     </section>
   </main>
 
   <footer class="wrap foot">
     <p>© <span id="year">2026</span> Raphael Ariguzor</p>
+    <p class="foot-mid">Built by hand · no frameworks</p>
     <a href="#">Back to top <span aria-hidden="true">↑</span></a>
   </footer>
 
